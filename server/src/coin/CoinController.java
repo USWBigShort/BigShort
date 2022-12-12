@@ -76,7 +76,7 @@ public class CoinController {
             tmp.setRateOfChange(rateOfChange);
 
             // 변동률에 따라서 가격변동
-            tmp.setPrice( (int)(tmp.getPrice() + tmp.getPrice()*tmp.getRateOfChange());
+            tmp.setPrice( (int)(tmp.getPrice() + tmp.getPrice()*tmp.getRateOfChange()));
         }
     }
 
