@@ -8,20 +8,20 @@ public class Coin implements Serializable {
     private String name;
     private int amount;
     private int price;
-    private double roc; // rate of change
+    private double rateOfChange; // rate of change
 
     public Coin() {
         this.name = null;
         this.amount = 0;
         this.price = 0;
-        this.roc = 0;
+        this.rateOfChange = 0;
     }
 
-    public Coin(String name, int amount, int price, double roc) {
+    public Coin(String name, int amount, int price, double rateOfChange) {
         this.name = name;
         this.amount = amount;
         this.price = price;
-        this.roc = roc;
+        this.rateOfChange = rateOfChange;
     }
 
     public String getName() {
@@ -48,12 +48,16 @@ public class Coin implements Serializable {
         this.price = price;
     }
 
-    public double getRoc() {
-        return roc;
+    public double getRateOfChange() {
+        return rateOfChange;
     }
 
-    public void setRoc(double roc) {
-        this.roc = roc;
+    public void setRateOfChange(double rateOfChange) {
+        this.rateOfChange = rateOfChange;
+    }
+
+    public void randomRoc(){
+        this.rateOfChange = this.rateOfChange *(Math.random()/1 + Math.random());
     }
 
 }

@@ -20,7 +20,7 @@ public class Main {
             System.out.println("코인을 생성하려면 make를 입력해주세요");
             String str = sc.nextLine();
             if (str.equals("make")) {
-                String name; int amount, price; double roc;
+                String name; int amount, price; double rateOfChange;
 
                 System.out.print("생성하려는 코인의 이름, 수량, 가격, 변동률을 입력해주세요: ");
                 StringTokenizer input = new StringTokenizer(sc.nextLine());
@@ -28,9 +28,9 @@ public class Main {
                 name = input.nextToken();
                 amount = Integer.parseInt(input.nextToken());
                 price = Integer.parseInt(input.nextToken());
-                roc = Double.parseDouble(input.nextToken());
+                rateOfChange = Double.parseDouble(input.nextToken());
 
-                cmg.makeCoin(name, amount, price, roc);
+                cmg.makeCoin(name, amount, price, rateOfChange);
                 System.out.println("코인이 생성되었습니다.");
                 System.out.println();
 

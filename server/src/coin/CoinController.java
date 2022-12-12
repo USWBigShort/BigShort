@@ -8,8 +8,8 @@ public class CoinController {
     public Set<Coin> coinSet = new HashSet<>();
     Iterator<Coin> iterator;
 
-    public void makeCoin(String name, int amount, int price, double roc) {
-        Coin coin = new Coin(name, amount, price, roc);
+    public void makeCoin(String name, int amount, int price, double rateOfChange) {
+        Coin coin = new Coin(name, amount, price, rateOfChange);
         coinSet.add(coin);
     }
 
@@ -44,7 +44,7 @@ public class CoinController {
             System.out.println("[코인 이름: " + tmp.getName() +
                     " 가격: " + tmp.getPrice() +
                     " 남은 수량: " + tmp.getAmount() +
-                    " 변동률: " + tmp.getRoc());
+                    " 변동률: " + tmp.getRateOfChange());
         }
     }
 
@@ -56,15 +56,15 @@ public class CoinController {
             System.out.println("[코인 이름: " + tmp.getName() +
                     " 가격: " + tmp.getPrice() +
                     " 남은 수량: " + tmp.getAmount() +
-                    " 변동률: " + tmp.getRoc());
+                    " 변동률: " + tmp.getRateOfChange());
         }
     }
 
     public void removeCoin(String coinName) {
         iterator = coinSet.iterator();
 
-        Coin rmCoin = findCoin(coinName);
-        coinSet.remove(rmCoin);
+        Coin removeCoin = findCoin(coinName);
+        coinSet.remove(removeCoin);
     }
 
 
