@@ -3,6 +3,7 @@ import coin.CoinController;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.Scanner;
+import java.util.StringTokenizer;
 
 public class Main {
     public static void main(String[] args) {
@@ -16,22 +17,18 @@ public class Main {
         cmg.makeCoin("비트", 3000, 2000, 2);
         cmg.makeCoin("샘", 4000, 60, 3);*/
         while (true) {
-            System.out.println("코인을 생성하려면 make Coin을 입력해주세요");
+            System.out.println("코인을 생성하려면 make를 입력해주세요");
             String str = sc.nextLine();
-            if (str.equals("make Coin")) {
+            if (str.equals("make")) {
                 String name; int amount, price; double roc;
-                System.out.print("생성하려는 코인의 이름을 입력해주세요: ");
-                name = sc.next();
-                sc.nextLine();
-                System.out.print("생성하려는 코인의 수량을 입력해주세요: ");
-                amount = sc.nextInt();
-                sc.nextLine();
-                System.out.print("생성하려는 코인의 가격을 입력해주세요: ");
-                price = sc.nextInt();
-                sc.nextLine();
-                System.out.print("생성하려는 코인의 변동률을 입력해주세요: ");
-                roc = sc.nextDouble();
-                sc.nextLine();
+
+                System.out.print("생성하려는 코인의 이름, 수량, 가격, 변동률을 입력해주세요: ");
+                StringTokenizer input = new StringTokenizer(sc.nextLine());
+
+                name = input.nextToken();
+                amount = Integer.parseInt(input.nextToken());
+                price = Integer.parseInt(input.nextToken());
+                roc = Double.parseDouble(input.nextToken());
 
                 cmg.makeCoin(name, amount, price, roc);
                 System.out.println("코인이 생성되었습니다.");
