@@ -56,8 +56,6 @@ public class Coin implements Serializable {
         this.rateOfChange = rateOfChange;
     }
 
-    public void randomRoc(){
-        this.rateOfChange = this.rateOfChange *(Math.random()/1 + Math.random());
-    }
+
 
 }

@@ -67,5 +67,18 @@ public class CoinController {
         coinSet.remove(removeCoin);
     }
 
+    // 랜덤 변동률 메소드
+    public void randomRatOfChange(String coinName) {
+        if (isCoin(coinName)) {
+            Coin tmp = findCoin(coinName);
+            // 변동률을 -50퍼에서 50퍼로 지정해놓음
+            double rateOfChange = (Math.random() * 101 - 50) / 100;
+            tmp.setRateOfChange(rateOfChange);
+
+            // 변동률에 따라서 가격변동
+            tmp.setPrice( (int)(tmp.getPrice() + tmp.getPrice()*tmp.getRateOfChange());
+        }
+    }
+
 
 }
