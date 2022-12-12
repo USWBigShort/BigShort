@@ -38,16 +38,17 @@ public class Main {
                 break;
             }
         }
+
         System.out.println("전체 출력");
         cmg.printAllCoin();
-        System.out.println();
 
-        System.out.println("루나만 출력");
-        cmg.printCoin("루나");
-
-        System.out.println("도지 삭제");
-        cmg.removeCoin("도지");
+        cmg.changeCoinRateByRandom("루나");
         cmg.printAllCoin();
+
+        cmg.changeCoinRateByRandom("도지");
+        cmg.printAllCoin();
+
+        cmg.changeCoinRateByRandom("이더");
 
     }
 }

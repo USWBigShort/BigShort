@@ -4,11 +4,11 @@ import java.io.Serializable;
 
 public class Coin implements Serializable {
 
-    // 코인 정보 : 코인이름, 수량, 가격, 변경되는 퍼센트
+    // 코인 정보 : 코인이름, 수량, 가격, 변동률
     private String name;
     private int amount;
     private int price;
-    private double rateOfChange; // rate of change
+    private double rateOfChange; // 변동률은 퍼센트로 1보다 작거나 같다.
 
     public Coin() {
         this.name = null;
@@ -56,8 +56,6 @@ public class Coin implements Serializable {
         this.rateOfChange = rateOfChange;
     }
 
-    public void randomRoc(){
-        this.rateOfChange = this.rateOfChange *(Math.random()/1 + Math.random());
-    }
+
 
 }
