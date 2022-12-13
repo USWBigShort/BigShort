@@ -14,13 +14,13 @@ import java.util.StringTokenizer;
 //스레드 생성은 main쪽에서 new Thread(new User(socket)).start() 해주면 됨
 public class User implements Runnable{
     //유저를 구분하기 위한 유저명
-    String name;
+    private String name;
     //유저가 보유중인 돈
-    int money;
+    private int money;
     //CoinController 객체로 CoinController 메서드를 사용해야해서 생성해둔 객체
-    CoinController coinController = new CoinController();
+    private final CoinController coinController = new CoinController();
     //유저가 보유중인 코인의 리스트<코인명, 가진개수>
-    HashMap<String, Integer> hasCoinMap;
+    private HashMap<String, Integer> hasCoinMap;
     //소켓
     private final Socket clientSocket;
 
@@ -30,45 +30,28 @@ public class User implements Runnable{
         this.clientSocket = clientSocket;
     }
 
-    //getCoin 코인을 buyCoinCount 만큼 구매할 수 있는지 확인해서 true/false return 해주는 메서드
-    private boolean checkCanBuy(Coin getCoin, int buyCoinCount){
-        boolean checkBoolean = false;
-        if (getCoin.getAmount() >= buyCoinCount && (getCoin.getPrice() * buyCoinCount) <= money){
-            checkBoolean = true;
-        }
-        return checkBoolean;
+    public Socket getClientSocket() {
+        return clientSocket;
     }
 
-    //getCoin 코인을 buyCoinCount 만큼 구매하는 메서드
-    private void buyCoin(Coin getCoin, int buyCoinCount){
-        getCoin.setAmount(getCoin.getAmount() - buyCoinCount);
-        money = money - (getCoin.getPrice() * buyCoinCount);
-        String getCoinName = getCoin.getName();
-        if (!hasCoinMap.containsKey(getCoinName)){
-            hasCoinMap.put(getCoinName, buyCoinCount);
-        }
-        else{
-            hasCoinMap.replace(getCoinName, hasCoinMap.get(getCoinName) + buyCoinCount);
-        }
+    public String getName() {
+        return name;
     }
 
-    //getCoin 코인을 sellCoinCount 만큼 판매할 수 있는지 확인해서 true/false return 해주는 메서드
-    private boolean checkCanSell(Coin getCoin, int sellCoinCount){
-        boolean checkBoolean = false;
-        if (hasCoinMap.containsKey(getCoin.getName())){
-            if (hasCoinMap.get(getCoin.getName()) >= sellCoinCount){
-                checkBoolean = true;
-            }
-        }
-        return checkBoolean;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    //getCoin 코인을 sellCoinCount 만큼 판매하는 메서드
-    private void sellCoin(Coin getCoin, int sellCoinCount){
-        getCoin.setAmount(getCoin.getAmount() + sellCoinCount);
-        money = money + (getCoin.getPrice() * sellCoinCount);
-        String getCoinName = getCoin.getName();
-        hasCoinMap.replace(getCoinName, hasCoinMap.get(getCoinName) - sellCoinCount);
+    public int getMoney() {
+        return money;
+    }
+
+    public void setMoney(int money) {
+        this.money = money;
+    }
+
+    public HashMap<String, Integer> getHasCoinMap() {
+        return hasCoinMap;
     }
 
     @Override
@@ -76,6 +59,7 @@ public class User implements Runnable{
         System.out.println("유저 스레드 시작");
         //입력값이 "매수/매도 코인명 개수"의 형식일때 각각의 값을 떼오는 용도로 사용한 StringTokenizer
         StringTokenizer stringTokenizer;
+        UserController userController = new UserController(this);
         try(BufferedReader socketReader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()))){
             while (true){
                 stringTokenizer = new StringTokenizer(socketReader.readLine());
@@ -93,8 +77,8 @@ public class User implements Runnable{
                     //코인 객체를 findCoin 으로 찾아와서 이후 메서드들에 매개변수로 넘겨줌
                     Coin coin = coinController.findCoin(coinName);
                     if (checkSellOrBuy.equals("매수")){
-                        if (checkCanBuy(coin, coinCount)){
-                            buyCoin(coin, coinCount);
+                        if (userController.checkCanBuy(coin, coinCount)){
+                            userController.buyCoin(coin, coinCount);
                             sendMessage = "구매에 성공했습니다.";
                         }
                         else{
@@ -102,8 +86,8 @@ public class User implements Runnable{
                         }
                     }
                     else if (checkSellOrBuy.equals("매도")){
-                        if (checkCanSell(coin, coinCount)){
-                            sellCoin(coin, coinCount);
+                        if (userController.checkCanSell(coin, coinCount)){
+                            userController.sellCoin(coin, coinCount);
                             sendMessage = "판매에 성공했습니다.";
                         }
                         else{
@@ -112,7 +96,6 @@ public class User implements Runnable{
                     }
                     else{
                         sendMessage = "잘못된 입력값입니다.";
-                        break;
                     }
                 }
                 else{
