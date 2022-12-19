@@ -15,9 +15,6 @@ public class CoinController {
 
     public boolean isCoin(String coinName) {
         iterator = coinSet.iterator();
-//        printAllCoin();
-//        System.out.println(coinName);
-
         while (iterator.hasNext()) {
             if (iterator.next().getName().equals(coinName)) {
                 return true;
@@ -36,6 +33,19 @@ public class CoinController {
             }
         }
         return null;
+    }
+
+    public String stringPrintCoin(String name) {
+        iterator = coinSet.iterator();
+
+        if (isCoin(name)) {
+            Coin tmp = findCoin(name);
+            return "[코인 이름: " + tmp.getName() +
+                    " 가격: " + tmp.getPrice() +
+                    " 남은 수량: " + tmp.getAmount() +
+                    " 변동률: " + tmp.getRateOfChange();
+        }
+        return "입력하신 코인이 없습니다.";
     }
 
     public void printCoin(String name) {

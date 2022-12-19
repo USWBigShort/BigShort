@@ -5,7 +5,6 @@ import coin.CoinController;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.HashMap;
 
 public class makeUserThread implements Runnable{
     //private static final
@@ -27,7 +26,8 @@ public class makeUserThread implements Runnable{
                 Socket socket = serverSocket.accept();
                 System.out.println(socket);
                 System.out.println("Connected to a Client");
-                new Thread(new UserThread(coinController, new User(""+userCountNumber++, new HashMap<>(), socket))).start();
+                User user = new User(""+userCountNumber++, socket);
+                new Thread(new UserThread(new UserController(new UserCoinController(user), user), coinController, user)).start();
             }
         } catch (IOException e) {
             e.printStackTrace();
