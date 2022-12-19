@@ -43,4 +43,9 @@ public class User{
     public HashMap<String, Integer> getHasCoinMap() {
         return hasCoinMap;
     }
+
+    @Override
+    public String toString() {
+        return "유저 : " + name;
+    }
 }
