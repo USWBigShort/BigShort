@@ -12,11 +12,12 @@ public class SimpleClient {
              PrintStream out = new PrintStream(socket.getOutputStream());
              InputStreamReader isr = new InputStreamReader(socket.getInputStream());
              BufferedReader br = new BufferedReader(isr)){
+            BufferedReader inputStringReader = new BufferedReader(new InputStreamReader(System.in));
 
             while (true){
-                String partName = "Axle";
-                out.println(partName);
-                System.out.println(partName + " request sent");
+                String inputString = inputStringReader.readLine();
+                out.println(inputString);
+                System.out.println("Request sent : " + inputString);
                 System.out.println("Response: " + br.readLine());
             }
 
