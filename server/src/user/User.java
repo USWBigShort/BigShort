@@ -8,7 +8,7 @@ public class User{
     //유저를 구분하기 위한 유저명
     private String name;
     //유저가 보유중인 돈
-    private int money;
+    private int money = 1000;
     //유저가 보유중인 코인의 리스트<코인명, 가진개수>
     final private HashMap<String, Integer> hasCoinMap;
     //소켓
