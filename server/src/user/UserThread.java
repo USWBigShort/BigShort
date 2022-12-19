@@ -11,8 +11,10 @@ import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
 
 public class UserThread implements Runnable{
+    private final CoinController coinController;
     final private User user;
-    public UserThread(User user){
+    public UserThread(CoinController coinController, User user){
+        this.coinController = coinController;
         this.user = user;
     }
     @Override
@@ -20,11 +22,9 @@ public class UserThread implements Runnable{
         //입력값이 "매수/매도 코인명 개수"의 형식일때 각각의 값을 떼오는 용도로 사용한 StringTokenizer
         StringTokenizer stringTokenizer;
         UserController userController = new UserController(user);
-        CoinController coinController = new CoinController();
         try(BufferedReader socketReader = new BufferedReader(new InputStreamReader(user.getClientSocket().getInputStream()));
             PrintStream socketWrite = new PrintStream(user.getClientSocket().getOutputStream())){
             System.out.println(user.getClientSocket());
-            socketWrite.println(user);
             while (true){
                 stringTokenizer = new StringTokenizer(socketReader.readLine());
                 String checkSellOrBuy ="";

@@ -11,7 +11,7 @@ import java.util.StringTokenizer;
 public class Main {
     public static void main(String[] args) {
         CoinController cmg = new CoinController();
-        Scanner sc = new Scanner(System.in);
+        //Scanner sc = new Scanner(System.in);
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         /*cmg.makeCoin("루나", 7000, 3, 5);
@@ -20,15 +20,15 @@ public class Main {
         cmg.makeCoin("비트", 3000, 2000, 2);
         cmg.makeCoin("샘", 4000, 60, 3);*/
         try(ServerSocket serverSocket = new ServerSocket(8888)){
-            new Thread(new makeUserThread(serverSocket)).start();
+            new Thread(new makeUserThread(serverSocket, cmg)).start();
             while (true) {
                 System.out.println("코인을 생성하려면 make를 입력해주세요");
-                String str = sc.nextLine();
+                String str = br.readLine();
                 if (str.equals("make")) {
                     String name; int amount, price; double rateOfChange;
 
                     System.out.print("생성하려는 코인의 이름, 수량, 가격, 변동률을 입력해주세요: ");
-                    StringTokenizer input = new StringTokenizer(sc.nextLine());
+                    StringTokenizer input = new StringTokenizer(br.readLine());
 
                     name = input.nextToken();
                     amount = Integer.parseInt(input.nextToken());

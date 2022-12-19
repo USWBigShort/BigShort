@@ -15,6 +15,8 @@ public class CoinController {
 
     public boolean isCoin(String coinName) {
         iterator = coinSet.iterator();
+//        printAllCoin();
+//        System.out.println(coinName);
 
         while (iterator.hasNext()) {
             if (iterator.next().getName().equals(coinName)) {
