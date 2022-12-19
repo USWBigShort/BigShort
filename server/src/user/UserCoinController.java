@@ -82,16 +82,16 @@ public class UserCoinController {
 
     public String stringPrintAllCoin() {
         iterator = coinSet.iterator();
-        String returnString = "";
+        StringBuilder sb = new StringBuilder();
         while (iterator.hasNext()) {
             UserCoin tmp = iterator.next();
-            returnString = ("[ 코인 이름: " + tmp.getCoinName() +
+            sb.append("[ 코인 이름: " + tmp.getCoinName() +
                     " 보유수량: " + tmp.getAmount() +
                     " 평균매수가: " + tmp.getAveragePurchasePrice() +
                     " 평가손익: " + tmp.getValuationGain_Loss() +
                     " 수익률: " + tmp.getRateOfReturn() +
                     " 총 매수금액: " + tmp.getTotalPurchaseAmount() + " ] ");
         }
-        return returnString;
+        return sb.toString();
     }
 }

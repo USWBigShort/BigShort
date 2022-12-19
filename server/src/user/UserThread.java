@@ -25,12 +25,15 @@ public class UserThread implements Runnable{
         StringTokenizer stringTokenizer;
         try(BufferedReader socketReader = new BufferedReader(new InputStreamReader(user.getClientSocket().getInputStream()));
             PrintStream socketWrite = new PrintStream(user.getClientSocket().getOutputStream())){
-            System.out.println(user.getClientSocket());
+            socketWrite.println("접속하셨습니다. 기본 비용 " + user.getMoney());
+            socketWrite.println(coinController.stringPrintAllCoin());
+            String sendMessage;
+            String checkRequestType; String coinName; int coinCount;
             while (true){
                 //이벤트 처리 후 클라이언트에 보내줄 출력 메세지, 특정 조건을 만족하지 못하면 디폴트 메세지로 전송
-                String sendMessage = "잘못된 입력값입니다.";
-                String checkRequestType; String coinName; int coinCount;
-                stringTokenizer = new StringTokenizer(socketReader.readLine());
+                String readString = socketReader.readLine();
+                sendMessage = readString;
+                stringTokenizer = new StringTokenizer(readString);
                 try{
                     checkRequestType = stringTokenizer.nextToken();
                     //구매/판매하는 코인 명
@@ -74,7 +77,6 @@ public class UserThread implements Runnable{
                     numberFormatException.printStackTrace();
                 }
                 socketWrite.println(sendMessage);
-                socketWrite.flush();
             }
         }catch (IOException e) {
             e.printStackTrace();

@@ -48,6 +48,19 @@ public class CoinController {
         return "입력하신 코인이 없습니다.";
     }
 
+    public String stringPrintAllCoin() {
+        iterator = coinSet.iterator();
+        StringBuilder sb = new StringBuilder();
+        while (iterator.hasNext()) {
+            Coin tmp = iterator.next();
+            sb.append("[코인 이름: " + tmp.getName() +
+                    " 가격: " + tmp.getPrice() +
+                    " 남은 수량: " + tmp.getAmount() +
+                    " 변동률: " + tmp.getRateOfChange());
+        }
+        return sb.toString();
+    }
+
     public void printCoin(String name) {
         iterator = coinSet.iterator();
 
