@@ -25,7 +25,7 @@ public class UserThread implements Runnable{
         StringTokenizer stringTokenizer;
         try(BufferedReader socketReader = new BufferedReader(new InputStreamReader(user.getClientSocket().getInputStream()));
             PrintStream socketWrite = new PrintStream(user.getClientSocket().getOutputStream())){
-            socketWrite.println("접속하셨습니다. 기본 비용 " + user.getMoney());
+            socketWrite.println("접속하셨습니다.\n기본 비용 " + user.getMoney());
             socketWrite.println(coinController.stringPrintAllCoin());
             String sendMessage;
             String checkRequestType; String coinName; int coinCount;
