@@ -8,7 +8,7 @@ public class UserCoin {
     // 평균 매수가
     private double averagePurchasePrice;
     // 평가손익 valuation gains and losses
-    private int valuationGain_Loss;
+    private int valuationGainLoss;
     // 수익률
     private double rateOfReturn;
     // 매수 금액
@@ -37,12 +37,12 @@ public class UserCoin {
     }
 
     public int getValuationGain_Loss() {
-        return valuationGain_Loss;
+        return valuationGainLoss;
     }
 
     // 평가손익은
     public void setValuationGain_Loss(int changeCoinPrice) {
-        this.valuationGain_Loss = (int) ((changeCoinPrice - getAveragePurchasePrice()) * getAmount());
+        this.valuationGainLoss = (int) ((changeCoinPrice - getAveragePurchasePrice()) * getAmount());
     }
 
     public double getRateOfReturn() {
