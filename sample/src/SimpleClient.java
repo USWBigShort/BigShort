@@ -17,7 +17,6 @@ public class SimpleClient {
             while (true){
                 String inputString = inputStringReader.readLine();
                 out.println(inputString);
-                out.flush();
                 System.out.println("Request sent : " + inputString);
                 System.out.println("Response: " + br.readLine());
             }

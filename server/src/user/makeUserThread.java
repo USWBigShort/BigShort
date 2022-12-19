@@ -27,7 +27,7 @@ public class makeUserThread implements Runnable{
                 System.out.println(socket);
                 System.out.println("Connected to a Client");
                 User user = new User(""+userCountNumber++, socket);
-                new Thread(new UserThread(new UserController(user), coinController, user)).start();
+                new Thread(new UserThread(new UserController(new UserCoinController(user), user), coinController, user)).start();
             }
         } catch (IOException e) {
             e.printStackTrace();
