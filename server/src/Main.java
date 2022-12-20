@@ -2,16 +2,20 @@ import coin.CoinController;
 import message.ServerMessageController;
 import user.makeUserThread;
 import java.io.IOException;
+import java.net.DatagramSocket;
+import java.net.MulticastSocket;
 import java.net.ServerSocket;
 public class Main {
     public static void main(String[] args) {
-        CoinController cmg = new CoinController();
         //BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        try (ServerSocket serverSocket = new ServerSocket(8888)) {
+        try (ServerSocket serverSocket = new ServerSocket(8888);
+             MulticastSocket multicastSocket = new MulticastSocket()) {
+
+            CoinController cmg = new CoinController(multicastSocket);
             new Thread(new makeUserThread(serverSocket, cmg)).start();
             new Thread(new ServerMessageController(cmg)).start();
-            while(true){
+            while (true) {
 
             }
         } catch (IOException e) {

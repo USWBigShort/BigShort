@@ -2,6 +2,7 @@ package message;
 
 import coin.CoinController;
 
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
@@ -38,7 +39,11 @@ public class ServerMessageController implements Runnable {
                     coinPrice = Integer.parseInt(input.nextToken());
                     coinRateOfChange = Double.parseDouble(input.nextToken());
 
-                    coinController.makeCoin(coinName, coinAmount, coinPrice, coinRateOfChange);
+                    try {
+                        coinController.makeCoin(coinName, coinAmount, coinPrice, coinRateOfChange);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     System.out.println(coinName + "코인이 생성되었습니다.");
                     System.out.println();
 
@@ -51,7 +56,11 @@ public class ServerMessageController implements Runnable {
 
                     name = input.nextToken();
 
-                    coinController.removeCoin(name);
+                    try {
+                        coinController.removeCoin(name);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     System.out.println(name + "코인이 삭제되었습니다.");
                     System.out.println();
                     break;
