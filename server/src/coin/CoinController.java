@@ -40,10 +40,10 @@ public class CoinController {
 
         if (isCoin(name)) {
             Coin tmp = findCoin(name);
-            return "[코인 이름: " + tmp.getName() +
-                    " 가격: " + tmp.getPrice() +
-                    " 남은 수량: " + tmp.getAmount() +
-                    " 변동률: " + tmp.getRateOfChange();
+            return "[" + tmp.getName() +
+                    ", " + tmp.getPrice() +
+                    ", " + tmp.getAmount() +
+                    ", " + tmp.getRateOfChange()+ "]";
         }
         return "입력하신 코인이 없습니다.";
     }
@@ -53,10 +53,10 @@ public class CoinController {
         StringBuilder sb = new StringBuilder();
         while (iterator.hasNext()) {
             Coin tmp = iterator.next();
-            sb.append("[코인 이름: " + tmp.getName() +
-                    " 가격: " + tmp.getPrice() +
-                    " 남은 수량: " + tmp.getAmount() +
-                    " 변동률: " + tmp.getRateOfChange());
+            sb.append("[" + tmp.getName() +
+                    ", " + tmp.getPrice() +
+                    ", " + tmp.getAmount() +
+                    ", " + tmp.getRateOfChange()+ "] \n");
         }
         return sb.toString();
     }
