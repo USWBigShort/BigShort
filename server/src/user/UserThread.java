@@ -38,7 +38,7 @@ public class UserThread implements Runnable{
                     checkRequestType = stringTokenizer.nextToken();
                     //구매/판매하는 코인 명
                     if (checkRequestType.equals("보유코인")){
-                        socketWrite.println("HOLDINGS : " + userController.getUserCoinController().stringPrintAllCoin());
+                        socketWrite.println("HOLDINGS: " + userController.getUserCoinController().stringPrintAllCoin());
                     }
                     else if (checkRequestType.equals("매수") || checkRequestType.equals("매도")) {
                         coinName = stringTokenizer.nextToken();
@@ -50,6 +50,7 @@ public class UserThread implements Runnable{
                             if (userController.checkCanBuy(coin, coinCount)){
                                 userController.buyCoin(coin, coinCount);
                                 sendMessage = "매수 성공!\n" + "가용 자산 : " + user.getMoney() + "\n" + "HOLDING:" + userController.getUserCoinController().stringPrintCoin(coinName);
+                                coinController.sendMessageMulticast(coin, "UPDATE: ");
                             }
                             else{
                                 sendMessage = "구매할 수 없습니다.";
@@ -59,6 +60,7 @@ public class UserThread implements Runnable{
                             if (userController.checkCanSell(coin, coinCount)){
                                 userController.sellCoin(coin, coinCount);
                                 sendMessage = "매도 성공!\n" + "가용 자산 : " + user.getMoney() + "\n" + "HOLDING:" + userController.getUserCoinController().stringPrintCoin(coinName);
+                                coinController.sendMessageMulticast(coin, "UPDATE: ");
                             }
                             else{
                                 sendMessage = "판매할 수 없습니다.";

@@ -20,13 +20,17 @@ public class CoinController {
         multicastSocket.joinGroup(inetAddress);
     }
 
-    public void makeCoin(String name, int amount, int price, double rateOfChange) throws IOException {
-        Coin coin = new Coin(name, amount, price, rateOfChange);
-        coinSet.add(coin);
-        String Message = coin.getName()+" 코인이 생성되었습니다.";
+    public void sendMessageMulticast(Coin coin, String inputMessage) throws IOException {
+        String Message = inputMessage + stringPrintCoin(coin.getName());
         byte[] sendMessage = Message.getBytes();
         sendPacket = new DatagramPacket(sendMessage, sendMessage.length, inetAddress, port);
         multicastSocket.send(sendPacket);
+    }
+
+    public void makeCoin(String name, int amount, int price, double rateOfChange) throws IOException {
+        Coin coin = new Coin(name, amount, price, rateOfChange);
+        coinSet.add(coin);
+        sendMessageMulticast(coin, "ADD: ");
     }
 
     public boolean isCoin(String coinName) {
