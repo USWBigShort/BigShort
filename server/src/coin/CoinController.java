@@ -1,5 +1,7 @@
 package coin;
 
+import java.io.IOException;
+import java.net.*;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -8,9 +10,23 @@ public class CoinController {
     public Set<Coin> coinSet = new HashSet<>();
     Iterator<Coin> iterator;
 
-    public void makeCoin(String name, int amount, int price, double rateOfChange) {
+    private MulticastSocket multicastSocket;
+    public DatagramPacket sendPacket;
+    InetAddress inetAddress = InetAddress.getByName("224.0.0.1");
+    int port = 7777;
+
+    public CoinController(MulticastSocket multicastSocket) throws IOException {
+        this.multicastSocket = multicastSocket;
+        multicastSocket.joinGroup(inetAddress);
+    }
+
+    public void makeCoin(String name, int amount, int price, double rateOfChange) throws IOException {
         Coin coin = new Coin(name, amount, price, rateOfChange);
         coinSet.add(coin);
+        String Message = coin.getName()+" 코인이 생성되었습니다.";
+        byte[] sendMessage = Message.getBytes();
+        sendPacket = new DatagramPacket(sendMessage, sendMessage.length, inetAddress, port);
+        multicastSocket.send(sendPacket);
     }
 
     public boolean isCoin(String coinName) {
@@ -85,11 +101,15 @@ public class CoinController {
         }
     }
 
-    public void removeCoin(String coinName) {
+    public void removeCoin(String coinName) throws IOException {
         iterator = coinSet.iterator();
 
         Coin removeCoin = findCoin(coinName);
         coinSet.remove(removeCoin);
+        String Message = removeCoin.getName()+" 코인이 삭제되었습니다.";
+        byte[] sendMessage = Message.getBytes();
+        sendPacket = new DatagramPacket(sendMessage, sendMessage.length, inetAddress, port);
+        multicastSocket.send(sendPacket);
     }
 
      /*
