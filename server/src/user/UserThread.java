@@ -38,7 +38,7 @@ public class UserThread implements Runnable{
                     checkRequestType = stringTokenizer.nextToken();
                     //구매/판매하는 코인 명
                     if (checkRequestType.equals("보유코인")){
-                        socketWrite.println(userController.getUserCoinController().stringPrintAllCoin());
+                        socketWrite.println("HOLDINGS : " + userController.getUserCoinController().stringPrintAllCoin());
                     }
                     else if (checkRequestType.equals("매수") || checkRequestType.equals("매도")) {
                         coinName = stringTokenizer.nextToken();
@@ -67,7 +67,7 @@ public class UserThread implements Runnable{
                     }
                     else{
                         if (coinController.isCoin(checkRequestType)){
-                            socketWrite.println(userController.getUserCoinController().stringPrintCoin(checkRequestType));
+                            socketWrite.println("HOLDING : " + userController.getUserCoinController().stringPrintCoin(checkRequestType));
                             continue;
                         }
                     }

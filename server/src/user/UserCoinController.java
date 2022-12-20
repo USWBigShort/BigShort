@@ -56,7 +56,7 @@ public class UserCoinController {
 
         if (isCoin(name)) {
             UserCoin tmp = findCoin(name);
-            return "HOLDING : " + "[ " + tmp.getCoinName() +
+            return "[ " + tmp.getCoinName() +
                     ", " + tmp.getAmount() +
                     ", " + tmp.getAveragePurchasePrice() +
                     ", " + tmp.getValuationGain_Loss() +
@@ -85,7 +85,7 @@ public class UserCoinController {
         StringBuilder sb = new StringBuilder();
         while (iterator.hasNext()) {
             UserCoin tmp = iterator.next();
-            sb.append("HOLDING : " + "[ " + tmp.getCoinName() +
+            sb.append("[ " + tmp.getCoinName() +
                     ", " + tmp.getAmount() +
                     ", " + tmp.getAveragePurchasePrice() +
                     ", " + tmp.getValuationGain_Loss() +
