@@ -13,7 +13,7 @@ public class CoinController {
     private MulticastSocket multicastSocket;
     public DatagramPacket sendPacket;
     InetAddress inetAddress = InetAddress.getByName("224.0.0.1");
-    int port = 5000;
+    int port = 7777;
 
     public CoinController(MulticastSocket multicastSocket) throws IOException {
         this.multicastSocket = multicastSocket;

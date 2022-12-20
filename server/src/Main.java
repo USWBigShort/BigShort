@@ -13,7 +13,7 @@ public class Main {
             CoinController cmg = new CoinController(multicastSocket);
             new Thread(new makeUserThread(serverSocket, cmg)).start();
             new Thread(new ServerMessageController(cmg)).start();
-            new Thread(new RandomCoin(cmg)).start();
+            //new Thread(new RandomCoin(cmg)).start();
             while(true){
 
             }

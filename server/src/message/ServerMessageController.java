@@ -1,5 +1,6 @@
 package message;
 
+import coin.Coin;
 import coin.CoinController;
 
 import java.io.IOException;
@@ -39,11 +40,20 @@ public class ServerMessageController implements Runnable {
                     coinPrice = Integer.parseInt(input.nextToken());
                     coinRateOfChange = Double.parseDouble(input.nextToken());
 
-                    try {
-                        coinController.makeCoin(coinName, coinAmount, coinPrice, coinRateOfChange);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    new Thread (() -> {
+                        try {
+                            coinController.makeCoin(coinName, coinAmount, coinPrice, coinRateOfChange);
+                            while (true) {
+                                coinController.changeCoinPriceByRandom(coinName, 10);
+                                Thread.sleep(1000);
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }).start();
+
                     System.out.println(coinName + "코인이 생성되었습니다.");
                     System.out.println();
 
