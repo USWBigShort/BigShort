@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.Random;
 
+import static coin.CoinController.coinSet;
+
 public class RandomCoin implements Runnable{
     public CoinController coinController;
 
@@ -14,10 +16,10 @@ public class RandomCoin implements Runnable{
     @Override
     public void run() {
         while (true) {
-            if(!coinController.coinSet.isEmpty()) {
+            if(coinSet.size()!=0) {
                 try {
                     System.out.println("RandomCoin클래스 시작");
-                    Iterator<Coin> iterator = coinController.coinSet.iterator();
+                    Iterator<Coin> iterator = coinSet.iterator();
                     int randomRange = (int) (Math.random() * 51);
                     Coin tmp = iterator.next();
                     coinController.changeCoinPriceByRandom(tmp.getName() , randomRange);

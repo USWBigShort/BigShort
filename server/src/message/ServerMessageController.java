@@ -68,25 +68,6 @@ public class ServerMessageController implements Runnable {
                     System.out.println("전체 코인리스트입니다.");
                     coinController.printAllCoin();
                     break;
-                case "랜덤변동률": {
-                    String coinName;
-                    int changeRateRange;
-
-                    System.out.print("변동시킬 코인 이름과 변동률의 범위를 입력해주세요: ");
-                    input = new StringTokenizer(sc.nextLine());
-
-                    coinName = input.nextToken();
-                    changeRateRange = Integer.parseInt(input.nextToken());
-
-                    try {
-                        coinController.changeCoinRateByRandom(coinName, changeRateRange);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    System.out.println(coinName + " 코인의 변동률이 변동되었습니다.");
-                    System.out.println();
-                    break;
-                }
                 case "랜덤가격": {
                     String coinName;
                     int changeRateRange;
@@ -106,27 +87,8 @@ public class ServerMessageController implements Runnable {
                     System.out.println();
                     break;
                 }
-                case "랜덤수량": {
-                    String coinName;
-                    int changeRateRange;
-
-                    System.out.print("변동시킬 코인 이름과 수량의 범위를 입력해주세요: ");
-                    input = new StringTokenizer(sc.nextLine());
-
-                    coinName = input.nextToken();
-                    changeRateRange = Integer.parseInt(input.nextToken());
-
-                    try {
-                        coinController.changeCoinAmountByRandom(coinName, changeRateRange);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    System.out.println(coinName + " 코인의 수량이 변동되었습니다.");
-                    System.out.println();
-                    break;
-                }
                 case "리스트":
-                    System.out.println("서버 메세지로는 \"코인생성, 코인삭제, 코인 리스트, 랜덤변동률, 랜덤가격, 랜덤수량, 리스트, 나가기\"가 있습니다. ");
+                    System.out.println("서버 메세지로는 \"코인생성, 코인삭제, 코인 리스트, 랜덤가격, 리스트, 나가기\"가 있습니다. ");
                     break;
                 case "나가기":
                     System.exit(0);
