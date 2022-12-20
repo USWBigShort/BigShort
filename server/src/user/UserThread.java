@@ -49,7 +49,7 @@ public class UserThread implements Runnable{
                         if (checkRequestType.equals("매수")){
                             if (userController.checkCanBuy(coin, coinCount)){
                                 userController.buyCoin(coin, coinCount);
-                                sendMessage = userController.getUserCoinController().stringPrintCoin(coinName);
+                                sendMessage = userController.getUserCoinController().stringPrintCoin(coinName) + "\n" + user.getMoney();
                             }
                             else{
                                 sendMessage = "구매할 수 없습니다.";
@@ -58,7 +58,7 @@ public class UserThread implements Runnable{
                         else {
                             if (userController.checkCanSell(coin, coinCount)){
                                 userController.sellCoin(coin, coinCount);
-                                sendMessage = userController.getUserCoinController().stringPrintCoin(coinName);
+                                sendMessage = userController.getUserCoinController().stringPrintCoin(coinName) + "\n" + user.getMoney();
                             }
                             else{
                                 sendMessage = "판매할 수 없습니다.";
