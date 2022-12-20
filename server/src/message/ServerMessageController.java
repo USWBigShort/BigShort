@@ -108,6 +108,7 @@ public class ServerMessageController implements Runnable {
                     System.out.println("서버 메세지로는 \"코인생성, 코인삭제, 코인 리스트, 랜덤변동률, 랜덤가격, 랜덤수량, 리스트, 나가기\"가 있습니다. ");
                     break;
                 case "나가기":
+                    System.exit(0);
                     break label;
                 default:
                     System.out.println("잘못된 메세지입니다. 리스트를 참조해주십시오!");
