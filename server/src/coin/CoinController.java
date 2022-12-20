@@ -110,10 +110,7 @@ public class CoinController {
 
         Coin removeCoin = findCoin(coinName);
         coinSet.remove(removeCoin);
-        String Message = removeCoin.getName()+" 코인이 삭제되었습니다.";
-        byte[] sendMessage = Message.getBytes();
-        sendPacket = new DatagramPacket(sendMessage, sendMessage.length, inetAddress, port);
-        multicastSocket.send(sendPacket);
+        sendMessageMulticast(removeCoin, "REMOVE: ");
     }
 
      /*
@@ -124,7 +121,7 @@ public class CoinController {
     */
 
     // 랜덤 변동률 메소드
-    public void changeCoinRateByRandom(String coinName, int changeRateRange) {
+    public void changeCoinRateByRandom(String coinName, int changeRateRange) throws IOException {
         if (isCoin(coinName)) {
             Coin tmp = findCoin(coinName);
             // 총 범위 = 2 * 입력 범위 * 랜덤함수 - 입력범위
@@ -139,10 +136,11 @@ public class CoinController {
             // 변동률에 따라 수량변경 (가격이 내려갈때는 매도수량이 많아지는 것이므로)
             tmp.setAmount( tmp.getAmount() - (int)(rateOfChange * tmp.getAmount()) );
 
+            sendMessageMulticast(tmp, "UPDATE: ");
         }
     }
 
-    public void changeCoinPriceByRandom(String coinName, int changePriceRange) {
+    public void changeCoinPriceByRandom(String coinName, int changePriceRange) throws IOException {
         if (isCoin(coinName)) {
             Coin tmp = findCoin(coinName);
             // 총 범위 = 2 * 입력 범위 * 랜덤함수 - 입력범위
@@ -157,11 +155,12 @@ public class CoinController {
 
             // 가격변경에 따라서 수량 변경
             tmp.setAmount( tmp.getAmount() - (int)(tmp.getRateOfChange() * tmp.getAmount()) );
+            sendMessageMulticast(tmp, "UPDATE: ");
 
         }
     }
 
-    public void changeCoinAmountByRandom(String coinName, int changeAmountRange) {
+    public void changeCoinAmountByRandom(String coinName, int changeAmountRange) throws IOException {
         if (isCoin(coinName)) {
             Coin tmp = findCoin(coinName);
             // 총 범위 = 2 * 입력 범위 * 랜덤함수 - 입력범위
@@ -179,6 +178,7 @@ public class CoinController {
             // 수량변경에 따라서 변동률 변경
             tmp.setRateOfChange( (previousPrice - tmp.getPrice()) / 100.0 );
 
+            sendMessageMulticast(tmp, "UPDATE: ");
         }
     }
 

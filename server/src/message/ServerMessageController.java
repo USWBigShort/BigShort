@@ -78,7 +78,11 @@ public class ServerMessageController implements Runnable {
                     coinName = input.nextToken();
                     changeRateRange = Integer.parseInt(input.nextToken());
 
-                    coinController.changeCoinRateByRandom(coinName, changeRateRange);
+                    try {
+                        coinController.changeCoinRateByRandom(coinName, changeRateRange);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     System.out.println(coinName + " 코인의 변동률이 변동되었습니다.");
                     System.out.println();
                     break;
@@ -93,7 +97,11 @@ public class ServerMessageController implements Runnable {
                     coinName = input.nextToken();
                     changeRateRange = Integer.parseInt(input.nextToken());
 
-                    coinController.changeCoinPriceByRandom(coinName, changeRateRange);
+                    try {
+                        coinController.changeCoinPriceByRandom(coinName, changeRateRange);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     System.out.println(coinName + " 코인의 가격이 변동되었습니다.");
                     System.out.println();
                     break;
@@ -108,7 +116,11 @@ public class ServerMessageController implements Runnable {
                     coinName = input.nextToken();
                     changeRateRange = Integer.parseInt(input.nextToken());
 
-                    coinController.changeCoinAmountByRandom(coinName, changeRateRange);
+                    try {
+                        coinController.changeCoinAmountByRandom(coinName, changeRateRange);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     System.out.println(coinName + " 코인의 수량이 변동되었습니다.");
                     System.out.println();
                     break;
