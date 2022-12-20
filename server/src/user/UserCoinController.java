@@ -56,12 +56,12 @@ public class UserCoinController {
 
         if (isCoin(name)) {
             UserCoin tmp = findCoin(name);
-            return "[ 코인 이름: " + tmp.getCoinName() +
-                    " 보유수량: " + tmp.getAmount() +
-                    " 평균매수가: " + tmp.getAveragePurchasePrice() +
-                    " 평가손익: " + tmp.getValuationGain_Loss() +
-                    " 수익률: " + tmp.getRateOfReturn() +
-                    " 총 매수금액: " + tmp.getTotalPurchaseAmount() + " ]";
+            return "[ " + tmp.getCoinName() +
+                    ", " + tmp.getAmount() +
+                    ", " + tmp.getAveragePurchasePrice() +
+                    ", " + tmp.getValuationGain_Loss() +
+                    ", " + tmp.getRateOfReturn() +
+                    ", " + tmp.getTotalPurchaseAmount() + " ] \n";
         }
         return "입력하신 코인이 없습니다.";
     }
@@ -85,12 +85,12 @@ public class UserCoinController {
         StringBuilder sb = new StringBuilder();
         while (iterator.hasNext()) {
             UserCoin tmp = iterator.next();
-            sb.append("[ 코인 이름: " + tmp.getCoinName() +
-                    " 보유수량: " + tmp.getAmount() +
-                    " 평균매수가: " + tmp.getAveragePurchasePrice() +
-                    " 평가손익: " + tmp.getValuationGain_Loss() +
-                    " 수익률: " + tmp.getRateOfReturn() +
-                    " 총 매수금액: " + tmp.getTotalPurchaseAmount() + " ]\n");
+            sb.append("[ " + tmp.getCoinName() +
+                    ", " + tmp.getAmount() +
+                    ", " + tmp.getAveragePurchasePrice() +
+                    ", " + tmp.getValuationGain_Loss() +
+                    ", " + tmp.getRateOfReturn() +
+                    ", " + tmp.getTotalPurchaseAmount() + " ]\n");
         }
         return sb.toString();
     }
