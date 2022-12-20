@@ -8,12 +8,12 @@ import java.util.Set;
 
 public class CoinController {
     public Set<Coin> coinSet = new HashSet<>();
-    Iterator<Coin> iterator;
+    public Iterator<Coin> iterator;
 
     private MulticastSocket multicastSocket;
     public DatagramPacket sendPacket;
     InetAddress inetAddress = InetAddress.getByName("224.0.0.1");
-    int port = 7777;
+    int port = 5000;
 
     public CoinController(MulticastSocket multicastSocket) throws IOException {
         this.multicastSocket = multicastSocket;
@@ -109,37 +109,18 @@ public class CoinController {
         iterator = coinSet.iterator();
 
         Coin removeCoin = findCoin(coinName);
-        coinSet.remove(removeCoin);
         sendMessageMulticast(removeCoin, "REMOVE: ");
+        coinSet.remove(removeCoin);
+
     }
 
      /*
-        변동률은 = 이전가격 - 신가격 / 100
+        변동률 = 이전가격 - 신가격 / 100
         신가격 = 변동률 * 100 + 이전가격
         신수량 = 이전수량 - 변동률*이전수량
-        변동률 = (이전수량 - 신수량) / 이전수량
     */
 
-    // 랜덤 변동률 메소드
-    public void changeCoinRateByRandom(String coinName, int changeRateRange) throws IOException {
-        if (isCoin(coinName)) {
-            Coin tmp = findCoin(coinName);
-            // 총 범위 = 2 * 입력 범위 * 랜덤함수 - 입력범위
-            int range = 2 * changeRateRange + 1;
-            double rateOfChange = (int)(Math.random() * range - changeRateRange) / 100.0;
-            // 랜덤 변동률 변경
-            tmp.setRateOfChange(rateOfChange);
-
-            // 변동률에 따라서 가격변경
-            tmp.setPrice( (int)(rateOfChange * 100) + tmp.getPrice() );
-
-            // 변동률에 따라 수량변경 (가격이 내려갈때는 매도수량이 많아지는 것이므로)
-            tmp.setAmount( tmp.getAmount() - (int)(rateOfChange * tmp.getAmount()) );
-
-            sendMessageMulticast(tmp, "UPDATE: ");
-        }
-    }
-
+    // 가격이 랜덤으로 바뀌는 메소드
     public void changeCoinPriceByRandom(String coinName, int changePriceRange) throws IOException {
         if (isCoin(coinName)) {
             Coin tmp = findCoin(coinName);
@@ -160,26 +141,5 @@ public class CoinController {
         }
     }
 
-    public void changeCoinAmountByRandom(String coinName, int changeAmountRange) throws IOException {
-        if (isCoin(coinName)) {
-            Coin tmp = findCoin(coinName);
-            // 총 범위 = 2 * 입력 범위 * 랜덤함수 - 입력범위
-            int range = 2 * changeAmountRange + 1;
-            int amountOfChange = (int) (Math.random() * range - changeAmountRange);
-            int amount = tmp.getAmount();
-            int previousPrice = tmp.getPrice();
-
-            // 랜덤 수량 변경
-            tmp.setAmount( tmp.getAmount() + amountOfChange );
-
-            // 수량변경에 따라서 가격 변경
-            tmp.setPrice( (amount - tmp.getAmount()) / amount * 100+ tmp.getPrice() );
-
-            // 수량변경에 따라서 변동률 변경
-            tmp.setRateOfChange( (previousPrice - tmp.getPrice()) / 100.0 );
-
-            sendMessageMulticast(tmp, "UPDATE: ");
-        }
-    }
 
 }
