@@ -20,7 +20,7 @@ public class UserController {
     }
 
     //getCoin 코인을 buyCoinCount 만큼 구매하는 메서드
-    public void buyCoin(Coin getCoin, int buyCoinCount){
+    synchronized public void buyCoin(Coin getCoin, int buyCoinCount){
         String getCoinName = getCoin.getName();
         getCoin.setAmount(getCoin.getAmount() - buyCoinCount);
         user.setMoney(user.getMoney() - (getCoin.getPrice() * buyCoinCount));
@@ -45,7 +45,7 @@ public class UserController {
     }
 
     //getCoin 코인을 sellCoinCount 만큼 판매하는 메서드
-    public void sellCoin(Coin getCoin, int sellCoinCount){
+    synchronized public void sellCoin(Coin getCoin, int sellCoinCount){
         String getCoinName = getCoin.getName();
 
         getCoin.setAmount(getCoin.getAmount() + sellCoinCount);
