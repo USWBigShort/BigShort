@@ -2,6 +2,8 @@ package message;
 
 import coin.CoinController;
 
+import java.io.IOException;
+import java.net.*;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
@@ -10,7 +12,12 @@ public class ServerMessageController implements Runnable {
     CoinController coinController;
     StringTokenizer input;
 
-    public ServerMessageController(CoinController coinController) {
+    public DatagramSocket datagramSocket = new DatagramSocket();
+    public DatagramPacket datagramPacket;
+    public InetAddress groupAddress = InetAddress.getByName("224.0.0.1");
+    public int port = 7000;
+
+    public ServerMessageController(CoinController coinController) throws SocketException, UnknownHostException {
         this.coinController = coinController;
     }
 
@@ -41,6 +48,15 @@ public class ServerMessageController implements Runnable {
                     coinController.makeCoin(coinName, coinAmount, coinPrice, coinRateOfChange);
                     System.out.println(coinName + "코인이 생성되었습니다.");
                     System.out.println();
+                    //생성될때 공지사항 기능 추가.
+                    String message = coinName + "코인이 생성되었습니다.";
+                    byte[] buffer = message.getBytes();
+                    datagramPacket = new DatagramPacket(buffer,buffer.length,groupAddress,7000);
+                    try {
+                        datagramSocket.send(datagramPacket);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
 
                     break;
                 }

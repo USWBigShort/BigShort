@@ -1,5 +1,9 @@
 package coin;
 
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.net.*;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -81,7 +85,7 @@ public class CoinController {
             System.out.println("[코인 이름: " + tmp.getName() +
                     " 가격: " + tmp.getPrice() +
                     " 남은 수량: " + tmp.getAmount() +
-                    " 변동률: " + tmp.getRateOfChange());
+                    " 변동률: " + tmp.getRateOfChange() + "]");
         }
     }
 
@@ -114,7 +118,6 @@ public class CoinController {
 
             // 변동률에 따라 수량변경 (가격이 내려갈때는 매도수량이 많아지는 것이므로)
             tmp.setAmount( tmp.getAmount() - (int)(rateOfChange * tmp.getAmount()) );
-
         }
     }
 
@@ -133,7 +136,6 @@ public class CoinController {
 
             // 가격변경에 따라서 수량 변경
             tmp.setAmount( tmp.getAmount() - (int)(tmp.getRateOfChange() * tmp.getAmount()) );
-
         }
     }
 
@@ -154,7 +156,6 @@ public class CoinController {
 
             // 수량변경에 따라서 변동률 변경
             tmp.setRateOfChange( (previousPrice - tmp.getPrice()) / 100.0 );
-
         }
     }
 

@@ -5,10 +5,7 @@ import user.makeUserThread;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
-import java.net.ServerSocket;
+import java.net.*;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
@@ -19,10 +16,13 @@ public class Main {
 
         try (ServerSocket serverSocket = new ServerSocket(8888)) {
             new Thread(new makeUserThread(serverSocket, cmg)).start();
-            new Thread(new ServerMessageController(cmg));
+            new Thread(new ServerMessageController(cmg)).start();
+            while(true){
 
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 }

@@ -2,6 +2,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
+import java.net.DatagramPacket;
+import java.net.InetAddress;
+import java.net.MulticastSocket;
 import java.net.Socket;
 
 public class SimpleClient {
@@ -12,7 +15,7 @@ public class SimpleClient {
              PrintStream out = new PrintStream(socket.getOutputStream());
              InputStreamReader isr = new InputStreamReader(socket.getInputStream());
              BufferedReader br = new BufferedReader(isr)){
-            BufferedReader inputStringReader = new BufferedReader(new InputStreamReader(System.in));
+             BufferedReader inputStringReader = new BufferedReader(new InputStreamReader(System.in));
 
             while (true){
                 String inputString = inputStringReader.readLine();
