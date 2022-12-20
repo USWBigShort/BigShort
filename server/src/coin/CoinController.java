@@ -7,7 +7,7 @@ import java.util.Iterator;
 import java.util.Set;
 
 public class CoinController {
-    public static Set<Coin> coinSet = new HashSet<>();
+    public Set<Coin> coinSet = new HashSet<>();
     public Iterator<Coin> iterator;
 
     private MulticastSocket multicastSocket;
