@@ -90,7 +90,7 @@ public class UserCoinController {
                     " 평균매수가: " + tmp.getAveragePurchasePrice() +
                     " 평가손익: " + tmp.getValuationGain_Loss() +
                     " 수익률: " + tmp.getRateOfReturn() +
-                    " 총 매수금액: " + tmp.getTotalPurchaseAmount() + " ] ");
+                    " 총 매수금액: " + tmp.getTotalPurchaseAmount() + " ]\n");
         }
         return sb.toString();
     }
