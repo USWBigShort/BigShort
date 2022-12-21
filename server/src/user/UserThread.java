@@ -49,6 +49,8 @@ public class UserThread implements Runnable{
                         if (checkRequestType.equals("매수")){
                             if (userController.checkCanBuy(coin, coinCount)){
                                 userController.buyCoin(coin, coinCount);
+
+
                                 sendMessage = "매수 성공!\n" + "가용 자산 : " + user.getMoney() + "\n" + "HOLDING:" + userController.getUserCoinController().stringPrintCoin(coinName);
                                 coinController.sendMessageMulticast(coin, "UPDATE: ");
                             }

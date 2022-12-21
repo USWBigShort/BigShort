@@ -30,6 +30,7 @@ public class UserController {
         else{
             userCoinController.findCoin(getCoinName).setAmount(userCoinController.findCoin(getCoinName).getAmount() + buyCoinCount);
         }
+        userCoinController.findCoin(getCoinName).setAveragePurchasePrice(getCoin.getPrice(), buyCoinCount);
     }
 
     //getCoin 코인을 sellCoinCount 만큼 판매할 수 있는지 확인해서 true/false return 해주는 메서드
