@@ -1,6 +1,7 @@
 package coin;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Coin implements Serializable {
 
@@ -9,6 +10,12 @@ public class Coin implements Serializable {
     private int amount;
     private int price;
     private double rateOfChange; // 변동률은 퍼센트로 1보다 작거나 같다.
+
+    private ArrayList<String> notice = new ArrayList<>();
+
+    public ArrayList<String> getNotice() {
+        return notice;
+    }
 
     public Coin() {
         this.name = null;

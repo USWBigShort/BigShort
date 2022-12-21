@@ -2,9 +2,7 @@ package coin;
 
 import java.io.IOException;
 import java.net.*;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
+import java.util.*;
 
 public class CoinController {
     public Set<Coin> coinSet = new HashSet<>();
@@ -131,15 +129,60 @@ public class CoinController {
             // 랜덤 가격 변경
             tmp.setPrice( tmp.getPrice() + priceOfChange );
 
-            // 가격변경에 따라서 변동률 변경
-            tmp.setRateOfChange( (previousPrice - tmp.getPrice()) / 100.0 );
+            // 가격이 0이하면 상장폐지로 코인을 삭제
+            if (tmp.getPrice() > 0) {
+                // 가격변경에 따라서 변동률 변경
+                tmp.setRateOfChange( (previousPrice - tmp.getPrice()) / 100.0 );
 
-            // 가격변경에 따라서 수량 변경
-            tmp.setAmount( tmp.getAmount() - (int)(tmp.getRateOfChange() * tmp.getAmount()) );
-            sendMessageMulticast(tmp, "UPDATE: ");
+                // 가격변경에 따라서 수량 변경
+                tmp.setAmount( tmp.getAmount() - (int)(tmp.getRateOfChange() * tmp.getAmount()) );
+                sendMessageMulticast(tmp, "UPDATE: ");
+            } else {
+                removeCoin(tmp.getName());
+            }
 
         }
     }
 
+    public void setNotice(String coinName, String notice) {
+        if (isCoin(coinName)) {
+            Coin tmp = findCoin(coinName);
+            String str = "[Notice: " + notice +" ]";
+            tmp.getNotice().add(str);
+        }
+    }
 
+    public void printNotice(String coinName){
+        if (isCoin(coinName)) {
+            Coin tmp = findCoin(coinName);
+            for (int index = 0; index < tmp.getNotice().size(); index++) {
+                System.out.println(tmp.getNotice().get(index));
+            }
+        }
+    }
+
+    public String getNotice(String coinName) {
+        String str = "<전체공지>";
+        if (isCoin(coinName)) {
+            Coin tmp = findCoin(coinName);
+            for (int index = 0; index < tmp.getNotice().size(); index++) {
+                str = str + "\n" +  tmp.getNotice().get(index);
+            }
+        }
+        return str;
+    }
+
+    public void printNoticeToClient(String coinName) throws IOException {
+        if (isCoin(coinName)) {
+            String str = "<전체공지>";
+            Coin tmp = findCoin(coinName);
+            for (int index = 0; index < tmp.getNotice().size(); index++) {
+                str = str + "\n" + tmp.getNotice().get(index);
+            }
+            String Message = tmp.getName() + str;
+            byte[] sendMessage = Message.getBytes();
+            sendPacket = new DatagramPacket(sendMessage, sendMessage.length, inetAddress, port);
+            multicastSocket.send(sendPacket);
+        }
+    }
 }

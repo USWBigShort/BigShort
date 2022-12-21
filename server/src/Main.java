@@ -1,5 +1,4 @@
 import coin.CoinController;
-import coin.RandomCoin;
 import message.ServerMessageController;
 import user.makeUserThread;
 import java.io.IOException;
@@ -13,7 +12,7 @@ public class Main {
             CoinController cmg = new CoinController(multicastSocket);
             new Thread(new makeUserThread(serverSocket, cmg)).start();
             new Thread(new ServerMessageController(cmg)).start();
-            //new Thread(new RandomCoin(cmg)).start();
+
             while(true){
 
             }

@@ -59,7 +59,7 @@ public class ServerMessageController implements Runnable {
 
                     break;
                 }
-                case "코인삭제":
+                case "코인삭제":{
                     String name;
                     System.out.print("삭제하려는 코인의 이름을 입력해주세요: ");
                     input = new StringTokenizer(sc.nextLine());
@@ -74,6 +74,7 @@ public class ServerMessageController implements Runnable {
                     System.out.println(name + "코인이 삭제되었습니다.");
                     System.out.println();
                     break;
+                }
                 case "코인 리스트":
                     System.out.println("전체 코인리스트입니다.");
                     coinController.printAllCoin();
@@ -97,6 +98,26 @@ public class ServerMessageController implements Runnable {
                     System.out.println();
                     break;
                 }
+                case "공지 생성":{
+                    String name, announcement;
+                    System.out.print("공지를 추가하려는 코인의 이름을 입력해주세요: ");
+                    name = sc.nextLine();
+                    System.out.println("추가하려는 공지 내용을 입력해주세요.");
+                    System.out.print("> ");
+                    announcement = sc.nextLine();
+
+                    coinController.setNotice(name, announcement);
+                    break;
+                }
+                case "공지 출력":{
+                    String name;
+                    System.out.print("공지를 보려는 코인의 이름을 입력해주세요: ");
+                    name = sc.nextLine();
+
+                    coinController.printNotice(name);
+                    break;
+                }
+
                 case "리스트":
                     System.out.println("서버 메세지로는 \"코인생성, 코인삭제, 코인 리스트, 랜덤가격, 리스트, 나가기\"가 있습니다. ");
                     break;
