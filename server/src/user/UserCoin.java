@@ -59,7 +59,11 @@ public class UserCoin {
     }
 
     public void setAveragePurchasePrice(int newBuyPrice, int buyAmount) {
-        this.averagePurchasePrice = (getAveragePurchasePrice() * getAmount() + newBuyPrice * buyAmount) / (getAmount() + buyAmount);
+        if (amount==0) {
+            this.averagePurchasePrice = 0;
+        } else {
+            this.averagePurchasePrice = (getAveragePurchasePrice() * getAmount() + newBuyPrice * buyAmount) / (getAmount() + buyAmount);
+        }
     }
 
     public int getTotalPurchaseAmount() {
